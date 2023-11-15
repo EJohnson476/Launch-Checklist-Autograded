@@ -1,14 +1,14 @@
 // Write your helper functions here!
 
 
-
+ 
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
     // Here is the HTML formatting for our mission target div.
-    return(
+    document.getElementById('missionTarget').innerHTML =
         `
                  <h2>Mission Destination</h2>
                  <ol>
-                     <li>Name: {name}</li>
+                     <li>Name: ${name}</li>
                      <li>Diameter: ${diameter} </li>
                      <li>Star: ${star}</li>
                      <li>Distance from Earth: ${distance} </li>
@@ -16,54 +16,73 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
                  </ol>
                  <img src="${imageUrl}">
         `
-    )
+
  }
- addDestinationInfo(Document(), "hi");
+ 
  function validateInput(testInput) {
-    if(typeof(testInput) === String)
+    if(typeof(testInput) === "string")
     {
-        if(testInput === '')
-        {
-            return "Empty";
-        }
         return "String";
     }
-    if(typeof(Number(testInput)) === Number)
-    {
-        return "Is a Number";
-    }
-    else if(isNaN(Number(testInput)))
+    else if(isNaN(testInput))
     {
         return "Not a Number";
+    }
+    else if(testInput === 0)
+    {
+        return "Not a Number";
+    }
+    else if(typeof(testInput) === "number")
+    {
+        return "Is a Number";
     }
  }
  
  function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 
+    console.log(validateInput(pilot));
+    console.log(validateInput(copilot));
+    console.log(validateInput(fuelLevel));
+    console.log(fuelLevel);
+    console.log(validateInput(cargoLevel));
+
     if(validateInput(pilot) === "String")
     {
         document.getElementById('pilotStatus').innerHTML = `${pilot} is Ready`;
     }
-    else if(validateInput(pilot) === "Empty")
+    else
     {
-        document.getElementById('pilotStatus').innerHTML = "";
+        alert("Please enter a string of characters for the pilot.");
+        event.preventDefault();
     }
 
-    if(validateInput(pilot) === "String")
+    if(validateInput(copilot) === "String")
     {
         document.getElementById('copilotStatus').innerHTML = `${copilot} is Ready`;
     }
-    else if(validateInput(pilot) === "Empty")
+    else
     {
+        alert("Please enter a string of characters for the copilot.");
+        event.preventDefault();
+    }
 
-        document.getElementById('copilotStatus').innerHTML = "";
+    if (fuelLevel === "Not a Number");
+    {
+        alert("Please enter a number for fuel level.");
+        event.preventDefault();
+    };
+
+    if(validateInput(cargoLevel) === "Not a Number")
+    {
+        alert("Please enter a number for cargo mass.");
+        event.preventDefault();
     }
 
     if(validateInput(fuelLevel) === "Is a Number")
     {
         if(fuelLevel < 10000)
         {
-            document.getElementById('faultyItems').style.visability = visable;
+            //.getElementById('faultyItems').style.visability = visible;
             document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch.";
             document.getElementById('launchStatus').style.color = red;
             document.getElementById('fuelStatus').innerHTML = "Fuel level too low for launch.";
@@ -72,11 +91,12 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
     if (cargoLevel > 10000)
     {
-        list.style.visability = visable;
+       // .style.visability = visible;
         document.getElementById('cargoStatus').innerHTML = "There is too much cargo mass for launch.";
         document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch.";
         document.getElementById('launchStatus').style.color = "red";
     }
+
     if (fuelLevel > 10000 && cargoLevel < 10000)
     {
         document.getElementById('launchStatus').innerHTML = "Shuttle ready for launch.";

@@ -30,10 +30,9 @@ window.addEventListener("load", function () {
                 alert("All fields required.");
                 event.preventDefault();
             }
-            let fuelValue = Number(fuelLevel.value);
-            let cargoValue = Number(cargoMass.value);
              
-             formSubmission(document, list, pilotName.value, copilotName.value, fuelValue, cargoValue);
+             formSubmission(document, list, pilotName.value, copilotName.value, fuelLevel.value, cargoMass.value);
+             event.preventDefault();
             /*
             else
             {

@@ -20,91 +20,74 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
  }
  
  function validateInput(testInput) {
-    if(typeof(testInput) === "string")
-    {
-        return "String";
-    }
-    else if(isNaN(testInput))
+
+    
+    if(isNaN(testInput))
     {
         return "Not a Number";
     }
-    else if(testInput === 0)
-    {
-        return "Not a Number";
-    }
-    else if(typeof(testInput) === "number")
+    else
     {
         return "Is a Number";
     }
- }
+    if (testInput === '')
+    {
+        return "Empty"
+    }
+    }
  
  function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 
     console.log(validateInput(pilot));
     console.log(validateInput(copilot));
     console.log(validateInput(fuelLevel));
-    console.log(fuelLevel);
+   // console.log(fuelLevel);
     console.log(validateInput(cargoLevel));
 
-    if(validateInput(pilot) === "String")
+    if(validateInput(pilot) !== "Not a Number" && validateInput(copilot) === "Not a Number")
+    {
+        alert("Please enter a string of characters for the pilots.");
+        event.preventDefault();
+    }
+
+    if (validateInput(fuelLevel) !== "is a Number" && validateInput(cargoLevel) !== "is a Number")
+    {
+        alert("Please enter a number for fuel level and cargo mass.");
+        event.preventDefault();
+    }
+
+    if(validateInput(pilot) === "Not a Number" && validateInput(copilot) === "Not a Number")
     {
         document.getElementById('pilotStatus').innerHTML = `${pilot} is Ready`;
-    }
-    else
-    {
-        alert("Please enter a string of characters for the pilot.");
-        event.preventDefault();
-    }
-
-    if(validateInput(copilot) === "String")
-    {
         document.getElementById('copilotStatus').innerHTML = `${copilot} is Ready`;
     }
-    else
-    {
-        alert("Please enter a string of characters for the copilot.");
-        event.preventDefault();
-    }
 
-    if (fuelLevel === "Not a Number");
-    {
-        alert("Please enter a number for fuel level.");
-        event.preventDefault();
-    };
 
-    if(validateInput(cargoLevel) === "Not a Number")
-    {
-        alert("Please enter a number for cargo mass.");
-        event.preventDefault();
-    }
-
-    if(validateInput(fuelLevel) === "Is a Number")
+    if (validateInput(fuelLevel) === "is a Number" && validateInput(cargoLevel) === "is a Number")
     {
         if(fuelLevel < 10000)
         {
             //.getElementById('faultyItems').style.visability = visible;
             document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch.";
-            document.getElementById('launchStatus').style.color = red;
+            document.getElementById('launchStatus').style.color = "red";
             document.getElementById('fuelStatus').innerHTML = "Fuel level too low for launch.";
         }
+
+        if (cargoLevel > 10000)
+        {
+           // .style.visability = visible;
+            document.getElementById('cargoStatus').innerHTML = "There is too much cargo mass for launch.";
+            document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch.";
+            document.getElementById('launchStatus').style.color = "red";
+        }
+    
+        if (fuelLevel > 10000 && cargoLevel < 10000)
+        {
+            document.getElementById('launchStatus').innerHTML = "Shuttle ready for launch.";
+            document.getElementById('launchStatus').style.color = "green";
+        }
     }
-
-    if (cargoLevel > 10000)
-    {
-       // .style.visability = visible;
-        document.getElementById('cargoStatus').innerHTML = "There is too much cargo mass for launch.";
-        document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch.";
-        document.getElementById('launchStatus').style.color = "red";
-    }
-
-    if (fuelLevel > 10000 && cargoLevel < 10000)
-    {
-        document.getElementById('launchStatus').innerHTML = "Shuttle ready for launch.";
-        document.getElementById('launchStatus').style.color = "green";
-    }
-
-
- }
+ };
  
  async function myFetch() {
      let planetsReturned;

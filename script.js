@@ -2,7 +2,7 @@
 
 window.addEventListener("load", function () {
 
-    let listedPlanets; 
+    let listedPlanets;  
     // Set listedPlanetsResponse equal to the value returned by calling myFetch()
     let listedPlanetsResponse = myFetch();
     listedPlanetsResponse.then(function (result) {
@@ -25,23 +25,9 @@ window.addEventListener("load", function () {
             let cargoMass = document.querySelector('input[name = cargoMass]');
             let list = document.getElementById('faultyItems');
 
-            if ((pilotName.value) === "" || copilotName.value === "" || fuelLevel.value === "" || cargoMass.value === "") 
-            {
-                alert("All fields required.");
-                event.preventDefault();
-            }
-             
+            event.preventDefault();
              formSubmission(document, list, pilotName.value, copilotName.value, fuelLevel.value, cargoMass.value);
              event.preventDefault();
-            /*
-            else
-            {
-                let fuelValue = Number(fuelLevel.value);
-                let cargoValue = Number(cargoMass.value);
-                formSubmission(document, list, pilotName.value, copilotName.value, fuelLevel.value, cargoMass.value)
-                list.setAttribute('style', 'visibility: visible'); 
-            }  
-            */
         }); 
     })
 });
